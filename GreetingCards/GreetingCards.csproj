@@ -67,6 +67,10 @@
     <Compile Include="BirthdayCard.cs" />
     <Compile Include="YouthBirthdCard.cs" />
     <Compile Include="AdultBirthCard.cs" />
+    <Compile Include="CardsRepo.cs" />
+    <Compile Include="CreateActivity.cs" />
+    <Compile Include="DisplayActivity.cs" />
+    <Compile Include="DisplayCreatedActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -98,6 +102,18 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\layout\Create.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Display.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\DisplayCreated.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
