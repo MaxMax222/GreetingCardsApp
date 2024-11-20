@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace GreetingCards
 {
@@ -19,10 +20,7 @@ namespace GreetingCards
         public static CardsRepo GetInstance()
         {
             // Lazy initialization: create the instance only when needed
-            if (_instance == null)
-            {
-                _instance = new CardsRepo();
-            }
+            _instance ??= new CardsRepo();
             return _instance;
         }
 
@@ -46,15 +44,7 @@ namespace GreetingCards
         // Method to filter cards by type
         public List<T> Filter<T>()
         {
-            List<T> filtered = new List<T>();
-            foreach (GreetingCard card in greetingCards)
-            {
-                if (card is T filteredCard)
-                {
-                    filtered.Add(filteredCard);
-                }
-            }
-            return filtered;
+            return greetingCards.OfType<T>().ToList();
         }
     }
 }

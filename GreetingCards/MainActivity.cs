@@ -32,7 +32,7 @@ namespace GreetingCards
 
         private void Display_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            StartActivity(displayIntent);
         }
 
         private void Birthday_Click(object sender, EventArgs e)
