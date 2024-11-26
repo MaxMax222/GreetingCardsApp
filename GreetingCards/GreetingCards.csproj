@@ -71,6 +71,7 @@
     <Compile Include="CreateActivity.cs" />
     <Compile Include="DisplayActivity.cs" />
     <Compile Include="DisplayCreatedActivity.cs" />
+    <Compile Include="CardsAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -111,6 +112,22 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\DisplayCreated.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Item.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\adultBirthday.jpg">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\weddingCard.jpg">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\youngBirthday.jpg">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>

@@ -79,22 +79,10 @@ namespace GreetingCards
                 }
 
             }
-            ScrollView mainScroll = new ScrollView(this);
-            mainScroll.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent, 1);
-            LinearLayout linearShow = new LinearLayout(this)
-            {
-                Orientation = Orientation.Vertical,
-                LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent)
-            };
-            foreach (var card in showCards)
-            {
-                TextView msg = new TextView(this);
-                msg.LayoutParameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
-                msg.Text = card.GreetingMSG();
-                linearShow.AddView(msg);
+            ListView mainScroll = new ListView(this);
+            var adapter = new CardsAdapter(this, showCards);
+            mainScroll.Adapter = adapter;
 
-            }
-            mainScroll.AddView(linearShow);
             main.AddView(mainScroll);
             Button btn = new Button(this);
             {
