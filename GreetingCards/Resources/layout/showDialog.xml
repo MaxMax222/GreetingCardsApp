@@ -5,15 +5,13 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:gravity="center"
+	android:id="@+id/main"
     >
-	<ImageView
-		android:layout_width="250dp"
-		android:layout_height="350dp"
-		android:id="@+id/cardImg"/>
 	<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		android:id="@+id/greeting"
-		android:textSize="20sp"/>
+		android:textSize="20sp"
+		android:textColor="#f7ec14"/>
 </LinearLayout>
 

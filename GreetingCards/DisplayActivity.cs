@@ -19,12 +19,16 @@ namespace GreetingCards
         private enum FormType
         {
             Wedding,
-            Birthday
+            BirthdayYoung,
+            BirthdayAdult,
+            All
         }
 
-		Button ret, wedding, birthday;
-        LinearLayout main;
+        Dictionary<int, FormType> variants;
+        Button ret;
         CardsRepo repo;
+        ListView cardsView;
+        Spinner options; 
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
@@ -37,26 +41,12 @@ namespace GreetingCards
 
         private void AddClicks()
         {
-            wedding.Click += Wedding_Click;
-            birthday.Click += Birthday_Click;
             ret.Click += Ret_Click;
         }
 
         private void Ret_Click(object sender, EventArgs e)
         {
             Finish();
-        }
-
-        private void Birthday_Click(object sender, EventArgs e)
-        {
-            main.RemoveAllViews();
-            GenerateForm(FormType.Birthday);
-        }
-
-        private void Wedding_Click(object sender, EventArgs e)
-        {
-            main.RemoveAllViews();
-            GenerateForm(FormType.Wedding);
         }
 
         private void GenerateForm(FormType typeOfCards)
@@ -70,43 +60,60 @@ namespace GreetingCards
                     showCards.Add(card);
                 }
             }
-            else
+            else if(typeOfCards == FormType.BirthdayAdult)
             {
-                var filtered = repo.Filter<BirthdayCard>();
+                var filtered = repo.Filter<AdultBirthCard>();
                 foreach (var card in filtered)
                 {
                     showCards.Add(card);
                 }
-
             }
-            ListView mainScroll = new ListView(this);
-            var adapter = new CardsAdapter(this, showCards);
-            mainScroll.Adapter = adapter;
-
-            main.AddView(mainScroll);
-            Button btn = new Button(this);
+            else if(typeOfCards == FormType.BirthdayYoung)
             {
-                LinearLayout.LayoutParams LayoutParameters = new LinearLayout.LayoutParams(-2, -2, 1);
+                var filtered = repo.Filter<YouthBirthCard>();
+                foreach (var card in filtered)
+                {
+                    showCards.Add(card);
+                }
             }
-            btn.Text = "close";
-            btn.Click += Btn_Click;
-            main.AddView(btn);
-        }
+            else
+            {
+                showCards = repo.getAll();
+            }
+            var adapter = new CardsAdapter(this, showCards);
+            cardsView.Adapter = adapter;
 
-        private void Btn_Click(object sender, EventArgs e)
-        {
-            Finish();
+     
         }
 
         private void Init()
         {
-			wedding = FindViewById<Button>(Resource.Id.weddings);
-			birthday = FindViewById<Button>(Resource.Id.birthdays);
-			ret = FindViewById<Button>(Resource.Id.ret);
+            variants = new Dictionary<int, FormType> { { 0, FormType.Wedding }, { 1, FormType.BirthdayAdult }, {2, FormType.BirthdayYoung },{3, FormType.All} };
 
-            main = FindViewById<LinearLayout>(Resource.Id.main);
+            ret = FindViewById<Button>(Resource.Id.ret);
+            cardsView = FindViewById<ListView>(Resource.Id.cardsDisplay);
+            options = FindViewById<Spinner>(Resource.Id.options);
 
+            var items = new List<string> { "Wedding cards", "Adult Birthday cards", "Young Birthday cards", "All cards"};
+
+            // Create an ArrayAdapter with the options
+            var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, items);
+            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+
+            // Set the adapter to the Spinner
+            options.Adapter = adapter;
+
+            // Handle the item selected event
+            options.ItemSelected += Options_ItemSelected;
             repo = CardsRepo.GetInstance();
+        }
+
+        private void Options_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            if (variants.ContainsKey(e.Position))
+            {
+                GenerateForm(variants[e.Position]);
+            }
         }
     }
 }

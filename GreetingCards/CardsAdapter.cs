@@ -83,19 +83,19 @@ namespace GreetingCards
             dialog.SetCanceledOnTouchOutside(true);
             dialog.SetContentView(Resource.Layout.showDialog);
 
-            var imgCard = dialog.FindViewById<ImageView>(Resource.Id.cardImg);
+            var main = dialog.FindViewById<LinearLayout>(Resource.Id.main);
             var card = _items[pos];
             if (card is WeddingCard)
             {
-                imgCard.SetImageResource(Resource.Drawable.weddingCard);
+                main.SetBackgroundResource(Resource.Drawable.weddingCard);
             }
             else if(card is AdultBirthCard)
             {
-                imgCard.SetImageResource(Resource.Drawable.adultBirthday);
+                main.SetBackgroundResource(Resource.Drawable.adultBirthday);
             }
             else
             {
-                imgCard.SetImageResource(Resource.Drawable.youngBirthday);
+                main.SetBackgroundResource(Resource.Drawable.youngBirthday);
             }
 
             var greeting = dialog.FindViewById<TextView>(Resource.Id.greeting);

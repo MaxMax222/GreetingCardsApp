@@ -4,19 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:id="@+id/main"
     >
-
-    <Button
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/weddings"
-        android:text="show wedding cards"/>
-    <Button
+        android:text="choose what cards to see: "
+        android:textSize="15sp"/>
+    <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/birthdays"
-        android:text="show bnirthday cards"/>
+            android:id="@+id/options"/>
+        </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardsDisplay"/>
+ 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

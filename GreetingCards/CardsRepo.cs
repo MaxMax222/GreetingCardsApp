@@ -46,5 +46,10 @@ namespace GreetingCards
         {
             return greetingCards.OfType<T>().ToList();
         }
+
+        public List<GreetingCard> getAll()
+        {
+            return greetingCards;
+        }
     }
 }
