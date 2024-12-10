@@ -7,16 +7,10 @@
     android:gravity="center">
 
     <Button
-        android:id="@+id/wedding"
+        android:id="@+id/create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="create a wedding card" />
-
-    <Button
-        android:id="@+id/birthday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="create a birthday card" />
+        android:text="create a card" />
 
     <Button
         android:id="@+id/display"

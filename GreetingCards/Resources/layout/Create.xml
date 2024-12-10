@@ -1,16 +1,93 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:id="@+id/main"
-    >
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/sender"
-        android:hint="Sender: "/>
+	<!-- TabHost -->
+	<TabHost
+		android:id="@+id/tabHost"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<!-- TabWidget -->
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+
+			<!-- Tabs (TabWidget) -->
+			<TabWidget
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@android:id/tabs"/>
+
+			<!-- Tab content area (FrameLayout) -->
+			<FrameLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@android:id/tabcontent">
+
+				<!-- First tab content -->
+				<LinearLayout
+					android:id="@+id/wedding_card"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:gravity="center_horizontal">
+					<EditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Sender:"
+						android:id="@+id/cardSenderWedd"/>
+					<EditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Groom:"
+						android:id="@+id/groom"/>
+					<EditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Bride:"
+						android:id="@+id/bride"/>
+					<Button
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Create"
+						android:id="@+id/createWedd"/>
+				</LinearLayout>
+
+				<!-- Second tab content -->
+				<LinearLayout
+					android:id="@+id/birthday_card"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:orientation="vertical"
+					android:gravity="center_horizontal">
+					<EditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Sender:"
+						android:id="@+id/cardSender"/>
+					<EditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Recipient:"
+						android:id="@+id/cardRecipient"/>
+					<EditText
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:hint="Age:"
+						android:id="@+id/age"/>
+					<Button
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Create"
+						android:id="@+id/create"/>
+				</LinearLayout>
+
+			</FrameLayout>
+		</LinearLayout>
+	</TabHost>
 </LinearLayout>
-

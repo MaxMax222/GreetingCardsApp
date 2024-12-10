@@ -8,6 +8,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Systems;
 using Android.Views;
 using Android.Widget;
 
@@ -17,9 +18,10 @@ namespace GreetingCards
 	public class DisplayCreatedActivity : Activity
 	{
 		CardsRepo repo;
-		TextView card;
 		LinearLayout main;
 		Button ret;
+		Dialog dialog;
+		GreetingCard card;
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
 			base.OnCreate (savedInstanceState);
@@ -32,17 +34,39 @@ namespace GreetingCards
         private void Init()
         {
 			repo = CardsRepo.GetInstance();
-
             main = FindViewById<LinearLayout>(Resource.Id.main);
+			ret = FindViewById<Button>(Resource.Id.ret);
+			ret.Click += Ret_Click;
 
-            card = new TextView(this) { TextSize = 25 };
-            card.Text = repo.GetLast().GreetingMSG();
-			main.AddView(card);
+			card = repo.GetLast();
+			dialog = new Dialog(this);
+			ShowCard();
 
-			ret = new Button(this) { Text = "Return"};
-            ret.Click += Ret_Click;
-			main.AddView(ret);
+
 		}
+
+        private void ShowCard()
+        {
+            dialog.SetCanceledOnTouchOutside(true);
+            dialog.SetContentView(Resource.Layout.showDialog);
+            var mainD = dialog.FindViewById<LinearLayout>(Resource.Id.main);
+            if (card is WeddingCard)
+            {
+                mainD.SetBackgroundResource(Resource.Drawable.weddingCard);
+            }
+            else if (card is AdultBirthCard)
+            {
+                mainD.SetBackgroundResource(Resource.Drawable.adultBirthday);
+            }
+            else
+            {
+                mainD.SetBackgroundResource(Resource.Drawable.youngBirthday);
+            }
+
+            var greeting = dialog.FindViewById<TextView>(Resource.Id.greeting);
+            greeting.Text = card.GreetingMSG();
+            dialog.Show();
+        }
 
         private void Ret_Click(object sender, EventArgs e)
         {

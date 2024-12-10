@@ -13,115 +13,134 @@ using Android.Widget;
 
 namespace GreetingCards
 {
-	[Activity (Label = "CreateActivity")]			
-	public class CreateActivity : Activity
-	{
-		EditText editSender, editRecipient, editAge, editGroom, editBride;
-		LinearLayout main;
-		Button submit;
-		CardsRepo repo;
-		int formType;
-		protected override void OnCreate (Bundle savedInstanceState)
-		{
-			base.OnCreate (savedInstanceState);
+    [Activity(Label = "CreateActivity")]
+    public class CreateActivity : Activity
+    {
+        private EditText cardSenderWedd, groom, bride;
+        private EditText cardSender, cardRecipient, age;
+        private Button createWedd, createBirth;
 
-			// Create your application here
-			SetContentView(Resource.Layout.Create);
-			Init();
-		}
-		
+        private CardsRepo repo;
+
+        private Intent intent;
+        [Obsolete]
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            SetContentView(Resource.Layout.Create);
+
+            Init();
+
+            // Set onClick listeners for buttons
+            createWedd.Click += CreateWeddOnClick;
+            createBirth.Click += CreateOnClick;
+        }
+
+        [Obsolete]
         private void Init()
         {
-			editSender = FindViewById<EditText>(Resource.Id.sender);
-			main = FindViewById<LinearLayout>(Resource.Id.main);
+            // Setup the TabHost
+            var tabHost = FindViewById<TabHost>(Resource.Id.tabHost);
+            tabHost.Setup();
 
-			repo = CardsRepo.GetInstance();
+            // Initialize views for Wedding Tab
+            cardSenderWedd = tabHost.FindViewById<EditText>(Resource.Id.cardSenderWedd);
+            groom = tabHost.FindViewById<EditText>(Resource.Id.groom);
+            bride = tabHost.FindViewById<EditText>(Resource.Id.bride);
+            createWedd = tabHost.FindViewById<Button>(Resource.Id.createWedd);
 
-            formType = Intent.GetIntExtra("type", 0);
-            var size_of_edit = new LinearLayout.LayoutParams(-1, -2);
-            switch (formType)
-			{
-				case 1:
-					editRecipient = new EditText(this);
-					editRecipient.LayoutParameters = size_of_edit;
-					editRecipient.Hint = "Recipient:";
-					main.AddView(editRecipient);
+            // Initialize views for Birthday Tab
+            cardSender = tabHost.FindViewById<EditText>(Resource.Id.cardSender);
+            cardRecipient = tabHost.FindViewById<EditText>(Resource.Id.cardRecipient);
+            age = tabHost.FindViewById<EditText>(Resource.Id.age);
+            createBirth = tabHost.FindViewById<Button>(Resource.Id.create);
 
-                    editAge = new EditText(this);
-                    editAge.LayoutParameters = size_of_edit;
-                    editAge.Hint = "Age:";
-                    main.AddView(editAge);
-                    break;
-				case 2:
-                    editGroom = new EditText(this);
-                    editGroom.LayoutParameters = size_of_edit;
-                    editGroom.Hint = "Groom:";
-                    main.AddView(editGroom);
+            
 
-					editBride = new EditText(this);
-                    editBride.LayoutParameters = size_of_edit;
-                    editBride.Hint = "Bride:";
-                    main.AddView(editBride);
-					break;
-                default:
-					break;
-			}
-            submit = new Button(this);
-            submit.LayoutParameters = new LinearLayout.LayoutParams(-2, -2);
-            submit.Text = "Submit";
-            submit.TextSize = 20;
-            submit.Click += Submit_Click;
-            main.AddView(submit);
+            // Create tabs
+            var weddingTab = tabHost.NewTabSpec("weddingTab").SetIndicator("Wedding").SetContent(Resource.Id.wedding_card);
+            var birthdayTab = tabHost.NewTabSpec("birthdayTab").SetIndicator("Birthday").SetContent(Resource.Id.birthday_card);
+
+            tabHost.AddTab(weddingTab);
+            tabHost.AddTab(birthdayTab);
+
+            repo = CardsRepo.GetInstance();
+
+            intent = new Intent(this, typeof(DisplayCreatedActivity));
+
         }
 
-        private void Submit_Click(object sender, EventArgs e)
+        private void CreateWeddOnClick(object sender, EventArgs e)
         {
-			var msg = Toast.MakeText(this, "", ToastLength.Long);
-			if (ValidateForm())
-			{
-				if (formType == 1)
-				{
-					int age = int.Parse(editAge.Text);
-					if (age > 17)
-					{
-						repo.AddCard(new AdultBirthCard(editRecipient.Text, editSender.Text, age));
-						msg.SetText("Adult birthday card created");
-					}
-					else
-					{
-                        repo.AddCard(new YouthBirthCard(editRecipient.Text, editSender.Text, age));
-                        msg.SetText("Youth birthday card created");
-                    }
-                }
-				else
-				{
-					repo.AddCard(new WeddingCard(editGroom.Text, editBride.Text, editSender.Text));
-                    msg.SetText("Wedding card created");
-                }
+            if (ValidateWeddingInputs())
+            {
+                repo.AddCard(new WeddingCard(groom.Text, bride.Text, cardSenderWedd.Text));
+                Toast.MakeText(this, "Wedding card created!", ToastLength.Short).Show();
+                StartActivity(intent);
+                Finish();
             }
-			else
-			{
-                msg.SetText("Invalid form, try again");
-            }
-			msg.Show();
-			var intent = new Intent(this, typeof(DisplayCreatedActivity));
-			StartActivity(intent);
-			Finish();
         }
 
-		private bool ValidateForm()
-		{
-			bool result = editSender.Text != "";
-			if (formType == 1)
-			{
-				result = editRecipient.Text != "" && int.TryParse(editAge.Text, out _);
-			}
-			else{
-				result = editGroom.Text != "" && editBride.Text != "";
-			}
+        private void CreateOnClick(object sender, EventArgs e)
+        {
+            if (ValidateBirthdayInputs())
+            {
+                if (int.Parse(age.Text) > 17)
+                {
+                    repo.AddCard(new AdultBirthCard(cardRecipient.Text, cardSender.Text, int.Parse(age.Text)));
+                }
+                else
+                {
+                    repo.AddCard(new YouthBirthCard(cardRecipient.Text, cardSender.Text, int.Parse(age.Text)));
+                }
+                Toast.MakeText(this, "Birthday card created!", ToastLength.Short).Show();
 
-			return result;
-		}
+                StartActivity(intent);
+                Finish();
+            }
+        }
+
+        // Wedding Input Validation
+        private bool ValidateWeddingInputs()
+        {
+            if (string.IsNullOrWhiteSpace(cardSenderWedd.Text))
+            {
+                Toast.MakeText(this, "Sender is required!", ToastLength.Short).Show();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(groom.Text))
+            {
+                Toast.MakeText(this, "Groom is required!", ToastLength.Short).Show();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(bride.Text))
+            {
+                Toast.MakeText(this, "Bride is required!", ToastLength.Short).Show();
+                return false;
+            }
+            return true;
+        }
+
+        // Birthday Input Validation
+        private bool ValidateBirthdayInputs()
+        {
+            if (string.IsNullOrWhiteSpace(cardSender.Text))
+            {
+                Toast.MakeText(this, "Sender is required!", ToastLength.Short).Show();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(cardRecipient.Text))
+            {
+                Toast.MakeText(this, "Recipient is required!", ToastLength.Short).Show();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(age.Text) || !int.TryParse(age.Text, out _))
+            {
+                Toast.MakeText(this, "Age is required and should be a number!", ToastLength.Short).Show();
+                return false;
+            }
+            return true;
+        }
     }
 }
 
