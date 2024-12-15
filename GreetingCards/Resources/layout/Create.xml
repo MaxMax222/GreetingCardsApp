@@ -3,7 +3,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical">
+	android:orientation="vertical"
+	android:background="#fcdd74">
 
 	<!-- TabHost -->
 	<TabHost
@@ -21,7 +22,8 @@
 			<TabWidget
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:id="@android:id/tabs"/>
+				android:id="@android:id/tabs"
+				/>
 
 			<!-- Tab content area (FrameLayout) -->
 			<FrameLayout
@@ -35,27 +37,37 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:orientation="vertical"
-					android:gravity="center_horizontal">
+					android:gravity="center_horizontal"
+					>
 					<EditText
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:hint="Sender:"
-						android:id="@+id/cardSenderWedd"/>
+						android:id="@+id/cardSenderWedd"
+						android:textColor="#000000"
+						/>
 					<EditText
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:hint="Groom:"
-						android:id="@+id/groom"/>
+						android:id="@+id/groom"
+												android:textColor="#000000"
+/>
 					<EditText
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:hint="Bride:"
-						android:id="@+id/bride"/>
+						android:id="@+id/bride"
+												android:textColor="#000000"
+/>
 					<Button
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:text="Create"
-						android:id="@+id/createWedd"/>
+						android:id="@+id/createWedd"
+						android:backgroundTint="#b296fa"
+						android:textColor="#000000"
+/>
 				</LinearLayout>
 
 				<!-- Second tab content -->
@@ -69,22 +81,30 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:hint="Sender:"
-						android:id="@+id/cardSender"/>
+						android:id="@+id/cardSender"
+												android:textColor="#000000"
+/>
 					<EditText
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:hint="Recipient:"
-						android:id="@+id/cardRecipient"/>
+						android:id="@+id/cardRecipient"
+												android:textColor="#000000"
+/>
 					<EditText
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:hint="Age:"
-						android:id="@+id/age"/>
+						android:id="@+id/age"
+												android:textColor="#000000"
+/>
 					<Button
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:text="Create"
-						android:id="@+id/create"/>
+						android:id="@+id/create"
+						android:backgroundTint="#b296fa"
+						android:textColor="#000000"/>
 				</LinearLayout>
 
 			</FrameLayout>

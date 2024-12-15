@@ -2,6 +2,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#fcdd74"
     >
     <ImageView
         android:layout_width="70dp"
@@ -18,11 +19,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/cardSender"/>
+            android:id="@+id/cardSender"
+            android:textColor="#000000"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/cardRecipient"/>
+            android:id="@+id/cardRecipient"
+            android:textColor="#000000"/>
     </LinearLayout>
 
     <Button
@@ -30,5 +33,7 @@
         android:layout_height="wrap_content"  
         android:layout_weight="1"  
         android:text="Display card"
-        android:id="@+id/display"/>
+        android:id="@+id/display"
+        android:backgroundTint="#b296fa"
+         android:textColor="#000000"/>
 </LinearLayout>

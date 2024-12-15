@@ -4,17 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="#fcdd74">
 
     <Button
         android:id="@+id/create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="create a card" />
+        android:text="create a card"
+        android:backgroundTint="#b296fa"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="display cards" />
+        android:text="display cards"
+        android:backgroundTint="#b296fa"
+         android:textColor="#000000"/>
 </LinearLayout>
