@@ -70,7 +70,6 @@
     <Compile Include="CardsRepo.cs" />
     <Compile Include="CreateActivity.cs" />
     <Compile Include="DisplayActivity.cs" />
-    <Compile Include="DisplayCreatedActivity.cs" />
     <Compile Include="CardsAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -108,10 +107,6 @@
       <Generator></Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Display.xml">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\DisplayCreated.xml">
       <SubType></SubType>
       <Generator></Generator>
     </AndroidResource>
